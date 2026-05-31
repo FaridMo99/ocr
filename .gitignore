@@ -1,0 +1,6 @@
+server/node_modules
+server/.env
+
+backend/.env
+
+kubernetes/secrets.yaml
