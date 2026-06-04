@@ -6,6 +6,8 @@ export type ProcessedResponse = {
   fileContent:string
 }
 
+const ocrUrl = `${BACKEND_URL}/api/v1/ocr`
+
 export async function sendFile(files: FileList): Promise<ProcessedResponse[]> {
   const formData = new FormData();
 
@@ -13,7 +15,7 @@ export async function sendFile(files: FileList): Promise<ProcessedResponse[]> {
     formData.append("files", file);
   });
 
-  const response = await fetch(BACKEND_URL, {
+  const response = await fetch(ocrUrl, {
     method: "POST",
     credentials: "include",
     body: formData,

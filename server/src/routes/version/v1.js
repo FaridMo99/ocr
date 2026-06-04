@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { createUser, getUsers } from "../../controller/root.js";
+import { processFile } from "../../controller/ocr.js";
+import { upload } from "../../middleware/validation.js";
 
 const v1Router = Router();
 
-v1Router.get("ocr", getUsers);
+v1Router.post("ocr", upload.array("files",10), await processFile);
 
 export default v1Router;

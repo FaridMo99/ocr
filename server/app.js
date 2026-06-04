@@ -1,17 +1,12 @@
-import dotenv from "dotenv"
 import express from "express"
 import chalk from "chalk"
-import router from "./src/routes/router.js";
 import cors from "cors"
 import apiRouter from "./src/routes/api.js";
-
-dotenv.config()
+import { FRONTEND_URL, PORT } from "./src/configs/env.js";
 
 export const getTimestamp = () => `[${new Date().toISOString().replace("T", ", ").replace("Z", "")}]`;
 
 const app = express()
-const PORT = process.env.PORT | 3000
-const FRONTEND_URL= process.env.FRONTEND_URL| 3000
 
 app.use(
   cors({
