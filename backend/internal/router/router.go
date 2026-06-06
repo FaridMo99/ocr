@@ -2,31 +2,20 @@ package router
 
 import (
     "github.com/gin-gonic/gin"
-    "github.com/FaridMo99/Go-API/internal/handlers"
     "github.com/FaridMo99/Go-API/internal/middleware"
+	"github.com/FaridMo99/Go-API/helpers"
 )
 
-func SetupRouter() *gin.Engine {
+func SetupRouter(envVars helpers.EnvVars) *gin.Engine {
     r := gin.Default()
 
-    r.Use(middleware.Logger())
+    //middleware
+	r.Use(middleware.Logger())
+	r.Use(middleware.CheckJwt(envVars.JWT_SECRET))
 
-	UserHandler := handlers.UserHandler{}
-	PostHandler := handlers.PostHandler{}
-
-    r.GET("/users", UserHandler.GetUsers(&r.ContextWithFallback))
-	r.GET("/users/:id", UserHandler.GetUser(&r.ContextWithFallback))
-
-    r.POST("/users", UserHandler.CreateUser(&r.ContextWithFallback))
-	r.PUT("/users/:id", UserHandler.UpdateUser(&r.ContextWithFallback))
-	r.DELETE("/users/:id", UserHandler.DeleteUser(&r.ContextWithFallback))
-
-	r.GET("/posts", PostHandler.GetPosts(&r.ContextWithFallback))
-	r.GET("/posts/:id", PostHandler.GetPost(&r.ContextWithFallback))
-
-    r.POST("/posts", PostHandler.CreatePost(&r.ContextWithFallback))
-	r.PUT("/posts/:id", PostHandler.UpdatePost(&r.ContextWithFallback))
-	r.DELETE("/posts/:id", PostHandler.DeletePost(&r.ContextWithFallback))
-
+    //routes
+    api := r.Group("/api")
+    ApiRouter(api, envVars)
+    
     return r
 }

@@ -6,3 +6,5 @@ frontend/node_modules
 backend/.env
 
 kubernetes/secrets.yaml
+
+zstructure.txt

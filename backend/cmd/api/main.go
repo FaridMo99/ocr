@@ -8,7 +8,7 @@ import (
 
 func main() {
 	envVars := helpers.LoadEnvVars()
-	router := router.SetupRouter()
+	router := router.SetupRouter(envVars)
 
 	log.Printf("Starting server on port %s...", envVars.PORT)
 	err := router.Run(envVars.PORT)
@@ -18,4 +18,3 @@ func main() {
 	}
 	log.Printf("Server started successfully on port:%s", envVars.PORT)
 }
-

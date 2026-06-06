@@ -1,4 +1,6 @@
 import multer from "multer";
+import { NextFunction, Request, Response } from "express";
+import { generateJwt } from "../utils/utils.js";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const ALLOWED_TYPES = [
@@ -21,3 +23,10 @@ export const upload = multer({
     }
   },
 });
+
+export function addJwtToken(req:Request, _res:Response, next:NextFunction) {
+  const token = generateJwt()
+  req.jwtHeader = `Bearer ${token}`;
+
+  next();
+};
