@@ -1,31 +1,37 @@
-FROM golang:1.25-bookworm AS dependencies
+FROM golang:1.25-bookworm AS builder
 
 RUN apt-get update && apt-get install -y \
-    golang \
     tesseract-ocr \
-    tesseract-ocr-osd \
     libtesseract-dev \
     libleptonica-dev \
     pkg-config \
-    gcc \
-    g++ \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-
-FROM dependencies AS copying
 
 COPY go.mod go.sum ./
 RUN go mod download
 
 COPY . .
+RUN go build -o /app/main ./cmd/api/main.go
 
-FROM copying AS builder
+FROM debian:bookworm-slim
 
-RUN go build -o main ./cmd/api/main.go
+RUN apt-get update && apt-get install -y \
+    tesseract-ocr \
+    libtesseract5 \
+    libleptonica-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /root/
+
+COPY --from=builder /app/main .
+
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+RUN chown appuser:appgroup main
+USER appuser
 
 EXPOSE 3001
-
 CMD ["./main"]
 
 # dont forget to change user
