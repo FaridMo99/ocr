@@ -76,6 +76,7 @@ function UploadCard() {
             (Array.isArray(errors.files) &&
               errors.files.find((e) => e?.message))) && (
             <p className="text-red-500 mt-2">
+              {/* @ts-expect-error: Logic handles both FieldError and array of FieldErrors */}
               {errors.files?.message ||
                 (Array.isArray(errors.files) &&
                   errors.files.find((e) => e?.message)?.message)}

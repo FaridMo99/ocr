@@ -12,6 +12,8 @@ WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 
+ENV ENV=production
+
 COPY . .
 RUN go build -o /app/main ./cmd/api/main.go
 
@@ -27,11 +29,10 @@ WORKDIR /root/
 
 COPY --from=builder /app/main .
 
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+RUN groupadd -r appgroup && useradd -r -g appgroup appuser
 RUN chown appuser:appgroup main
 USER appuser
 
 EXPOSE 3001
 CMD ["./main"]
 
-# dont forget to change user

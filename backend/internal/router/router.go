@@ -7,6 +7,11 @@ import (
 )
 
 func SetupRouter(envVars helpers.EnvVars) *gin.Engine {
+
+    if envVars.ENV == "production" {
+        gin.SetMode(gin.ReleaseMode)
+    }
+
     r := gin.Default()
 
     //middleware

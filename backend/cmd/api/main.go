@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"github.com/FaridMo99/Go-API/helpers"
 	"github.com/FaridMo99/Go-API/internal/router"
@@ -9,7 +8,7 @@ import (
 
 func main() {
 	envVars := helpers.LoadEnvVars()
-	fmt.Printf("DEBUG:", envVars.PORT)
+
 
 	router := router.SetupRouter(envVars)
 
