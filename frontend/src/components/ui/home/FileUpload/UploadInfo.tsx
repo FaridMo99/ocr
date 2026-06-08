@@ -11,7 +11,7 @@ function UploadInfo() {
           Drop a file here
         </p>
         <p className="mt-1.5 text-sm text-muted-foreground">
-          PNG, JPG, JPEG or PDF · up to 10MB
+          PNG, JPG, WebP, TIFF or BMP · up to 10MB
         </p>
       </div>
     </div>

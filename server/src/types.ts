@@ -8,7 +8,7 @@ declare global {
   }
 }
 
-export type ClientResponseOcr = {
+export type OcrResponse = {
   filename: string;
-  fileContent: string;
+  content: string;
 };

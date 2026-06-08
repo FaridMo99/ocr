@@ -1,1 +1,31 @@
-FROM golang:1.22-alpine
+FROM golang:1.25-bookworm AS dependencies
+
+RUN apt-get update && apt-get install -y \
+    golang \
+    tesseract-ocr \
+    tesseract-ocr-osd \
+    libtesseract-dev \
+    libleptonica-dev \
+    pkg-config \
+    gcc \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+FROM dependencies AS copying
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+
+FROM copying AS builder
+
+RUN go build -o main ./cmd/api/main.go
+
+EXPOSE 3001
+
+CMD ["./main"]
+
+# dont forget to change user

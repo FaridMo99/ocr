@@ -12,7 +12,7 @@ type FileCardProps = {
 function FileCard({ fileResponse, showCard }: FileCardProps) {
   async function clickHandler() {
     try {
-      await navigator.clipboard.writeText(fileResponse.fileContent);
+      await navigator.clipboard.writeText(fileResponse.content);
       toast.success("Copied to Clipboard");
     } catch (error) {
       console.log(error);
@@ -33,7 +33,7 @@ function FileCard({ fileResponse, showCard }: FileCardProps) {
       closeButtonHandler={() => showCard(false)}
     >
       <div className="overflow-y-scroll flex-1 pr-4">
-        <p>{fileResponse.fileContent}</p>
+        <p>{fileResponse.content}</p>
       </div>
       <button
         aria-label="copy to clipboard"

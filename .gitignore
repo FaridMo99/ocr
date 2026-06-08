@@ -8,3 +8,5 @@ backend/.env
 kubernetes/secrets.yaml
 
 zstructure.txt
+
+./backend/main

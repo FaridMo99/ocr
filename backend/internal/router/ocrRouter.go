@@ -6,7 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func OcrRouter(rg *gin.RouterGroup, envVars helpers.EnvVars) {
-    fileProcessor := handlers.Ocr{NODEJS_SERVICE_URL: envVars.NODEJS_SERVICE_URL}
-    rg.POST("/process", fileProcessor.ProcessFile)
+func OcrRouter(rg *gin.RouterGroup) {
+	NODEJS_SERVICE_URL := helpers.LoadEnvVars().NODEJS_SERVICE_URL
+    fileProcessor := handlers.Ocr{
+		NODEJS_SERVICE_URL: NODEJS_SERVICE_URL,
+	}
+    rg.POST("/process", fileProcessor.ProcessFiles)
 }

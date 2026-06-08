@@ -15,7 +15,7 @@ func SetupRouter(envVars helpers.EnvVars) *gin.Engine {
 
     //routes
     api := r.Group("/api")
-    ApiRouter(api, envVars)
+    ApiRouter(api)
     
     return r
 }

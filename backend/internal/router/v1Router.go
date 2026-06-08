@@ -2,10 +2,9 @@ package router
 
 import (
     "github.com/gin-gonic/gin"
-    "github.com/FaridMo99/Go-API/helpers"
 )
 
-func V1Router(rg *gin.RouterGroup, envVars helpers.EnvVars) {
+func V1Router(rg *gin.RouterGroup) {
     ocr := rg.Group("/ocr")
-    OcrRouter(ocr, envVars)
+    OcrRouter(ocr)
 }

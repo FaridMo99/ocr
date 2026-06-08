@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"github.com/FaridMo99/Go-API/helpers"
 	"github.com/FaridMo99/Go-API/internal/router"
@@ -8,10 +9,13 @@ import (
 
 func main() {
 	envVars := helpers.LoadEnvVars()
+	fmt.Printf("DEBUG:", envVars.PORT)
+
 	router := router.SetupRouter(envVars)
 
+
 	log.Printf("Starting server on port %s...", envVars.PORT)
-	err := router.Run(envVars.PORT)
+	err := router.Run(":" + envVars.PORT)
 	
 	if err != nil {
 		log.Fatalf("Server failed to start: %v\n", err)

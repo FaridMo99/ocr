@@ -3,7 +3,7 @@ import { type FileList } from "../schemas/schemas";
 
 export type ProcessedResponse = {
   filename: string
-  fileContent:string
+  content:string
 }
 
 const ocrUrl = `${BACKEND_URL}/api/v1/ocr`

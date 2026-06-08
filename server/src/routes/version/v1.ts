@@ -4,6 +4,6 @@ import { addJwtToken, upload } from "../../middleware/middleware.js";
 
 const v1Router = Router();
 
-v1Router.post("ocr", upload.array("files",10), addJwtToken, await processFile);
+v1Router.post("/ocr", upload.array("files",10), addJwtToken, processFile);
 
 export default v1Router;

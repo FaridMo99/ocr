@@ -2,6 +2,9 @@ import chalk from "chalk";
 import { Request, Response } from "express";
 import { getTimestamp } from "../app.js";
 import { OCR_URL } from "../configs/env.js";
+import { OcrResponse } from "../types.js";
+
+const ocrProcessingEndpoint = `${OCR_URL}/api/v1/ocr/process`
 
 export async function processFile(req:Request, res:Response) {
   try {
@@ -22,7 +25,7 @@ export async function processFile(req:Request, res:Response) {
       formData.append("files", fileBlob, file.originalname);
     });
 
-    const ocrResponse = await fetch(OCR_URL, {
+    const ocrResponse = await fetch(ocrProcessingEndpoint, {
       method: "POST",
       headers: {
         Authorization: jwtHeader,
@@ -34,7 +37,9 @@ export async function processFile(req:Request, res:Response) {
       throw new Error(`OCR service responded with ${ocrResponse.status}`);
     }
 
-    const data = await ocrResponse.json();
+    const data: OcrResponse[] = await ocrResponse.json();
+
+    console.log("data:",data)
 
     //check later if correct format
     res.status(200).json(data);
