@@ -1,0 +1,35 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/dockerfile
+    ports:
+      - "80:80"
+    networks:
+      - ocr-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/dockerfile
+    image: backend-app:latest
+    ports:
+      - "3001:3001"
+    env_file:
+      - ./backend/.env
+    networks:
+      - ocr-network
+
+  server:
+    build:
+      context: .
+      dockerfile: server/dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - ocr-network
+ 
+
+networks:
+  ocr-network:
+    driver: bridge
