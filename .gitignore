@@ -1,12 +1,12 @@
-server/node_modules
-server/.env
+apps/server/node_modules
+apps/server/.env
 
-frontend/node_modules
+apps/frontend/node_modules
 
-backend/.env
+apps/backend/.env
+apps/backend/main
 
-kubernetes/secrets.yaml
+infrastructure/bootstrap
+infrastructure/kubernetes/secrets.yaml
 
 zstructure.txt
-
-./backend/main
