@@ -6,7 +6,6 @@ apps/frontend/node_modules
 apps/backend/.env
 apps/backend/main
 
-infrastructure/bootstrap
 infrastructure/kubernetes/secrets.yaml
 
 zstructure.txt

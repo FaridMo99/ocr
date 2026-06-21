@@ -1,15 +1,15 @@
 terraform {
   required_providers {
-        aws = {
+    aws = {
       source  = "hashicorp/aws"
-      version = "~> 6.39.0"
+      version = ">= 6.42.0"
     }
   }
   backend "s3" {
-    bucket         = "terraform-remote-backend-kubernetes"
-    key            = "kubernetes/terraform.tfstate"
-    region         = "eu-central-1"
-    encrypt        = true
+    bucket  = "terraform-remote-backend-kubernetes"
+    key     = "kubernetes/terraform.tfstate"
+    region  = "eu-central-1"
+    encrypt = true
 
     use_lockfile = true
   }
@@ -25,8 +25,19 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_subnet" "public" {
-  vpc_id                  = aws_vpc.main.id
-  cidr_block              = "10.0.0.128/25"
-  availability_zone       = "eu-central-1a"
-  map_public_ip_on_launch = true
+  for_each          = var.subnets_public
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = each.value.cidr
+  availability_zone = each.value.az
+
+  tags = { Name = each.key }
+}
+
+resource "aws_subnet" "private" {
+  for_each          = var.subnets_private
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = each.value.cidr
+  availability_zone = each.value.az
+
+  tags = { Name = each.key }
 }

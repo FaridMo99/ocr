@@ -82,3 +82,4 @@ Infrastructure is provisioned through Terraform as IaC.
 * **Availability**: 3 Replicas per service, distributed across 3 AZs using `topologySpreadConstraints`.
 * **Configuration**: Sensitive data is managed via **Kubernetes Secrets**; non-sensitive environment variables via **ConfigMaps**.
 * **Networking**: Cluster visibility is handled through Kubernetes **Services**, with external exposure handled by the **Gateway API** on an **AWS ALB**
+* **Network Policies**: to secure pod to pod communication.
